@@ -2,7 +2,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
-ext_validator = FileExtensionValidator(["uff"])
+# ext_validator = FileExtensionValidator(["uff"])
+
 
 
 class Reading(models.Model):
