@@ -14,7 +14,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         sections = []
         current_section = {}
-        uff = options["uff"]
         uff_file_name = options["uff"]
         uff = options["uff"].read()
 
@@ -40,7 +39,6 @@ class Command(BaseCommand):
                 date_format = "%Y%m%d%H%M%S"
                 date_obj = datetime.strptime(date_str, date_format)
                 obj, created = Reading.objects.get_or_create(
-                    d10_file=uff,
                     flow_file_name=uff_file_name,
                     meter_point_reference_number=section.get("026", [0]),
                     meter_serial_number=section.get("028", [0]),
