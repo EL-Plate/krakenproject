@@ -5,7 +5,6 @@ from django.db import models
 # ext_validator = FileExtensionValidator(["uff"])
 
 
-
 class Reading(models.Model):
     reading_id = models.AutoField(primary_key=True)
     flow_file_name = models.CharField(max_length=200)
