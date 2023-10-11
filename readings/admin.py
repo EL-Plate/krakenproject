@@ -10,3 +10,6 @@ class ReadingAdmin(admin.ModelAdmin):
     # optional: remove users ability to add readings manually
     # def has_add_permission(self, request):
         # return False
+
+
+admin.site.register(Reading, ReadingAdmin)
