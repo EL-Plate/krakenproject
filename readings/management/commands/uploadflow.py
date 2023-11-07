@@ -13,8 +13,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         sections = []
-        current_section = {}
-        uff_file_name = options["uff"]
+        current_mpan = ""
+        current_msn = ""
+        uff_file_name = options["uff"].name
         uff = options["uff"].read()
 
         # split file content into lines
@@ -25,25 +26,30 @@ class Command(BaseCommand):
 
             #  assess current section and add it to sections
             if fields[0] == "026":
-                current_section = {"026": fields[1]}
+                current_mpan = fields[1]
+                current_msn = ""
             elif fields[0] == "028":
-                current_section["028"] = fields[1]
+                current_msn = ""
             elif fields[0] == "030":
                 # end of section add it to sections
-                current_section["030"] = fields[3], fields[2]
-                sections.append(current_section)
+                sections.append({
+                    "mpan": current_mpan,
+                    "msn": current_msn,
+                    "date": fields[2],
+                    "reading": fields[3]
+                })
 
         for section in sections:
             try:
-                date_str = section["030"][1]
+                date_str = section.get("date", [0])
                 date_format = "%Y%m%d%H%M%S"
                 date_obj = datetime.strptime(date_str, date_format)
                 obj, created = Reading.objects.get_or_create(
-                    flow_file_name=uff_file_name,
-                    meter_point_reference_number=section.get("026", [0]),
-                    meter_serial_number=section.get("028", [0]),
-                    reading=section.get("030")[0],
-                    reading_date=date_obj
+                    flow_file_name = uff_file_name,
+                    meter_point_reference_number=section.get("mpan", [0]),
+                    meter_serial_number = section.get("msn", [0]),
+                    reading = section.get("reading", [0]),
+                    reading_date = date_obj
                 )
                 if created:
                     self.stdout.write(f"{uff_file_name} successfully created")
