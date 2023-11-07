@@ -16,7 +16,6 @@ D10 dataflow processing task
 </ol>
 
 ## Known Issues
-<li>custom management command doesn't pick up eco 7 meter readings</li>
 <li>Extension validator in models.py would not be sufficient alone for a file upload to be considered secure</li>
 
 ## Potential future issues
