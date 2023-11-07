@@ -158,3 +158,25 @@ class Reading(models.Model):
     d10_file = models.FileField(upload_to="/media/" validators=)
     d10_file_name = models.Charfield(max_length=200)
 ```
+
+## Further improvements & ideas
+Idea for incorporating day/night identifiers into the custom command. 
+This would also require adding a new field to the model and changing the object creation stage at the end of the uploadfile command.
+```commandline
+            '''elif fields[0]=="030" && fields[1] =="DY":
+                sections.append({
+                    "mpan": current_mpan,
+                    "msn": current_msn,
+                    "date": fields[2],
+                    "reading": fields[3],
+                    "day_night": "DY"
+                })'''
+            '''elif fields[0]=="030" && fields[1] =="NT":
+                sections.append({
+                    "mpan": current_mpan,
+                    "msn": current_msn,
+                    "date": fields[2],
+                    "reading": fields[3],
+                    "day_night": "NT"
+                })'''
+```
