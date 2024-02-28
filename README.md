@@ -111,7 +111,6 @@ $ python manage.py uploadflow "FILEPATH"
 
 
 ## model improvements
-These improvements might be out of scope
 ```commandline
 from django.db import models
 
